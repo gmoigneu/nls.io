@@ -6,7 +6,7 @@ a {
 	color: map-get($colors, content-link);
 }
 
-header#intro {
+header#blog-intro {
 	@extend %wrapper;
 	background-color: map-get($colors, second-background);
 	color: map-get($colors, second-foreground);
@@ -14,7 +14,7 @@ header#intro {
 
 article {
 	margin-bottom : $margin;
-  	border-bottom: 1px solid #f1f4f6;
+  	border-bottom: 1px solid map-get($colors, border-light);
   	padding-bottom: $margin;
 	h2 {
 		font-size: 24px;
@@ -31,17 +31,6 @@ article header {
 	margin-bottom: $margin/2;
 }
 
-time {
-	font-size: 12px;
-}
-
-.tags {
-	.label {
-		background-color: map-get($colors, background);
-		color: map-get($colors, foreground);
-		padding: 2px 4px;
-		text-decoration: none;
-		color: map-get($colors, link);
-		font-size: 12px;
-	}
+.article-metadata, .article-metadata time {
+	font-size: 14px;
 }

@@ -1,0 +1,75 @@
+#blog-article {
+	@extend %wrapper;
+	article {
+		border: 0;
+		header {
+			text-align: center;
+			margin-bottom: $margin*2;
+			h1 {
+				text-align: center;
+				font-size: 36px;
+				line-height: 48px;
+				a {
+					color: map-get($colors, content-header);	
+					text-decoration: none;
+				}
+				margin-bottom: $margin;
+			}
+		}
+		header#intro {
+			@extend %wrapper;
+			background-color: map-get($colors, second-background);
+			color: map-get($colors, second-foreground);
+		}
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+
+	.article-content {
+		p:first-child {
+			@extend %wrapper;
+			background-color: map-get($colors, second-background);
+			color: map-get($colors, second-foreground);
+			padding: 16px;
+			margin-bottom: $margin;
+		}
+
+		p {
+			margin-bottom: $margin;
+		}
+
+		img {
+			max-width: 100%;
+		}
+	}
+}
+
+.links {
+	margin-top: $margin;
+	padding-top: $margin;
+	border-top: 1px solid map-get($colors, border-light);
+	p {
+		text-align: center;
+		a {
+			box-sizing: border-box;
+			width: 100%;
+			display: block;
+			margin: 0 0 $margin 0;
+
+			@media (min-width: 700px) {
+				display: inline-block;
+				width: auto;
+				margin: 0 $margin;
+			}
+
+			padding: 8px 12px;
+			border: 1px solid map-get($colors, content-link);
+			text-decoration: none;
+			&:hover {
+				background-color: map-get($colors, content-link);
+				color: map-get($colors, link);
+			}
+		}
+	}
+}
+

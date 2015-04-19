@@ -12,22 +12,12 @@
     {% endif  %}
 
 	{% block content %}
-        <div class="container">
+        <main id="blog-article" class="content">
+			{% if config.plugins.breadcrumbs.enabled %}
+				{% include 'partials/breadcrumbs.html.twig' %}
+			{% endif %}
 
-		<div class="row">
-                <div class="col-sm-12 blog-main">
-					{% if config.plugins.breadcrumbs.enabled %}
-						{% include 'partials/breadcrumbs.html.twig' %}
-					{% endif %}
-
-    			    {% include 'partials/blog_item.html.twig' with {'truncate':false,'big_header':true} %}
-    			</div>
-
-                {#<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-    				{% include 'partials/sidebar.html.twig' %}
-    			</div>#}
-    		</div>
-        </div>
+		    {% include 'partials/article.html.twig' with {'truncate':false,'big_header':true} %}
+        </main>
 	{% endblock %}
-
 {% endembed %}

@@ -1,0 +1,34 @@
+time {
+	font-size: 12px;
+}
+
+.tags {
+	.label {
+		background-color: map-get($colors, background);
+		color: map-get($colors, foreground);
+		padding: 2px 4px;
+		text-decoration: none;
+		color: map-get($colors, link);
+		font-size: 12px;
+	}
+}
+
+.pagination {
+	li {
+		border: 1px solid map-get($colors, border-light);	
+		margin: 0;
+		span {
+			font-family: map-get($fonts, sans);
+			color: map-get($colors, content-header);
+		}
+
+		a {
+			font-family: map-get($fonts, sans);
+			text-decoration: none;
+			&:hover {
+				color: map-get($colors, link);
+				background-color: map-get($colors, content-link);
+			}
+		}
+	}
+}

@@ -10,6 +10,7 @@
         <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png') }}" />
         {% block stylesheets %}
             {% do assets.add('theme://build/css/nls.css',98) %}
+            {% do assets.add('theme://build/css/font-awesome.css',99) %}
         {% endblock %}
         {{ assets.css() }}
 
@@ -26,10 +27,10 @@
         {% endblock %}
 
         {% block content %}{% endblock %}
-        {% block pagination %}{% endblock %}
+
 
         <footer>
-            <p>Crafted with love by <a href="https://www.linkedin.com/in/guillaumemoigneu">Guillaume Moigneu &lt;nls&gt;</a>.</p>
+            <p>Crafted with love by <a href="/guillaume-moigneu">Guillaume Moigneu &lt;nls&gt;</a>.</p>
             <p>Running on <a href="http://getgrav.org/">Grav</a>. Built with <a href="http://sass-lang.com/">Sass</a> / <a href="http://susy.oddbird.net/">Susy</a> / <a href="http://gruntjs.com/">Grunt</a> and hosted on <a href="https://www.debian.org/">Debian</a> with <a href="https://www.varnish-cache.org/">Varnish</a> &amp; <a href="https://www.docker.com/">Docker</a>.
         </footer>
         {% block bottom %}{% endblock %}

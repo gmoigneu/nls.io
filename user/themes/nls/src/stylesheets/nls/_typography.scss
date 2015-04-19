@@ -1,4 +1,4 @@
-@import url("http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic|Montserrat");
+@import url("http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic|Montserrat|Inconsolata");
 @include establish-baseline;
 
 .logo {
@@ -22,6 +22,49 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: map-get($fonts, sans);
 }
 
-p, blockquote {
+p, blockquote, li {
 	font-family: map-get($fonts, serif);
+}
+
+code {
+	font-family: map-get($fonts, mono);
+	white-space: pre-wrap; /* css-3 */
+	white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+pre {
+	background-color: map-get($colors, second-background);
+	color: map-get($colors, second-foreground);
+	font-family: map-get($fonts, mono);
+	padding: 16px;
+	margin-bottom: $margin;
+}
+
+ul {
+	margin: $margin 0;
+	li {
+		list-style-type: disc;
+		margin-left: $margin*2;
+	}
+}
+
+.alert {
+	padding: 16px;
+	margin-bottom: $margin;
+	i {
+		margin-right: $margin/2;
+	}
+}
+
+.alert-danger {
+	background-color: map-get($colors, danger-background);
+	color: map-get($colors, danger-foreground);
+	border: 1px solid #{map-get($colors, danger-foreground)};
+	font-family: map-get($fonts, mono);
+	i {
+		color: map-get($colors, danger-foreground);
+	}
 }

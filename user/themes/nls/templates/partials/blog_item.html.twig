@@ -1,20 +1,20 @@
-<article class="list-item">
+<article class="list-item" itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
 
     <header class="list-blog-header">
 
         {% if page.header.link %}
-            <h2>
+            <h2 itemprop="headline">
                 {% if page.header.continue_link is not sameas(false) %}
                 <a href="{{ page.url }}"><i class="fa fa-angle-double-right"></i></a>
                 {% endif %}
                 <a href="{{ page.header.link }}">{{ page.title }}</a>
             </h2>
         {% else %}
-            <h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
+            <h2 itemprop="headline"><a href="{{ page.url }}">{{ page.title }}</a></h2>
         {% endif %}
 
         <span class="list-blog-date">
-            <i class="fa fa-calendar"></i> <time>{{ page.date|date("F j, Y, g:i a") }}</time>
+            <i class="fa fa-calendar"></i> <time itemprop="datePublished">{{ page.date|date("F j, Y, g:i a") }}</time>
         </span>
         {% if page.taxonomy.tag %}
         <span class="tags pull-right">
@@ -39,10 +39,10 @@
         {% set show_prev_next = true %}
         {% endif %}
     {% elseif truncate and page.summary != page.content %}
-        <p>{{ page.summary }}</p>
+        <p itemprop="description">{{ page.summary }}</p>
         <p class="more-link"><a href="{{ page.url }}">Continue Reading...</a></p>
     {% elseif truncate %}
-        <p>{{ page.content|truncate(550) }}</p>
+        <p itemprop="description">{{ page.content|truncate(550) }}</p>
         <p class="more-link"><a href="{{ page.url }}">Continue Reading...</a></p>
     {% else %}
         <p>{{ page.content }}</p>

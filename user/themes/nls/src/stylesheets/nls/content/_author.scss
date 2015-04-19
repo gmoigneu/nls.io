@@ -1,0 +1,13 @@
+#author {
+	@extend %wrapper;
+}
+
+#author-intro {
+	@extend %wrapper;
+	background-color: map-get($colors, second-background);
+	color: map-get($colors, second-foreground);
+	h1 {
+		text-align: center;
+  		font-size: 36px;
+  	}
+}

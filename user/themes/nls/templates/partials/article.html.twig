@@ -1,0 +1,73 @@
+<article class="list-item" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="list-blog-header">
+
+        {% if page.header.link %}
+            <h1 itemprop="headline">
+                {% if page.header.continue_link is not sameas(false) %}
+                <a href="{{ page.url }}"><i class="fa fa-angle-double-right"></i></a>
+                {% endif %}
+                <a href="{{ page.header.link }}">{{ page.title }}</a>
+            </h1>
+        {% else %}
+            <h1 itemprop="headline"><a href="{{ page.url }}">{{ page.title }}</a></h1>
+        {% endif %}
+
+        <p class="article-metadata">
+            <span class="article-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                by <i class="fa fa-user"></i> <a href="{{ site.author.page }}"><span itemprop="name">{{ site.author.name }}</span></a>
+            </span>
+            <span class="article-date">
+                on <i class="fa fa-calendar"></i> <time itemprop="datePublished">{{ page.date|date("F j, Y, g:i a") }}</time>
+            </span>
+        </p>
+
+        {% if big_header %}
+            {{ page.media.images|first.cropResize(900,600).html('','blog-header-image') }}
+        {% else %}
+            {{ page.media.images|first.cropZoom(900,300).html('','blog-header-image') }}
+        {% endif %}
+        
+        {% if page.taxonomy.tag %}
+        <div class="tags">
+            {% for tag in page.taxonomy.tag %}
+            <a class="label label-primary" href="{{ base_url }}/tag{{ config.system.param_sep }}{{ tag }}">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="article-content" itemprop="articleBody">
+
+    {% if page.header.continue_link is sameas(false) %}
+        <p>{{ page.content }}</p>
+        {% if not truncate %}
+        {% set show_prev_next = true %}
+        {% endif %}
+    {% elseif truncate and page.summary != page.content %}
+        <p>{{ page.summary }}</p>
+        <p class="more-link"><a href="{{ page.url }}">Continue Reading...</a></p>
+    {% elseif truncate %}
+        <p>{{ page.content|truncate(550) }}</p>
+        <p class="more-link"><a href="{{ page.url }}">Continue Reading...</a></p>
+    {% else %}
+        {{ page.content }}
+        {% set show_prev_next = true %}
+    {% endif %}
+
+    </div>
+    
+</article>
+
+<div class="links">
+    {% if show_prev_next %}
+        <p>
+            {% if not page.isLast %}
+                <a class="btn btn-default" href="{{ page.prevSibling.url }}">&laquo; Previous Post</i></a>
+            {% endif %}
+            {% if not page.isFirst %}
+                <a class="btn btn-default" href="{{ page.nextSibling.url }}">Next Post &raquo;</a>
+            {% endif %}
+        </p>
+    {% endif %}
+</div>  
