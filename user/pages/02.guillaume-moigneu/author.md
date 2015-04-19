@@ -2,13 +2,15 @@
 name: Guillaume Moigneu
 email: n@nls.io
 website: https://nls.io
-routable: false
+routable: true
+title: Guillaume Moigneu
 taxonomy:
     author: gmoigneu
 ---
 
 I love developping **cutting-edge websites**
 and making them **blazing fast**.
+
 
 * A little bit obsessed with frontend &amp; servers performance running on caffeine, mac, debian, magento, symfony & Sass
 * Love automating stuff with grunt, gulp, bower & puppet

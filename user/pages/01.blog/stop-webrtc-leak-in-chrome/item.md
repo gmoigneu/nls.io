@@ -1,6 +1,6 @@
 ---
 title: Stop the WebRTC leak in Chrome 42+
-date: 21:11:25 15/04/2015
+date: 04/19/2015 1:00pm
 taxonomy:
     category: blog
     tag: [webrtc, chrome, privacy]
@@ -27,7 +27,7 @@ If so, there is now a way to protect this leak from happening in Chrome 42+.
 ```
 
 <p class="alert alert-danger">
-    <span class="label label-danger">Warning:</span>
+    <i class="fa fa-warning"></i>
     Don't forget to add a `,` at the end of the previous line to respect json syntax.
 </p>
 

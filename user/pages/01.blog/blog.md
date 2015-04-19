@@ -1,5 +1,5 @@
 ---
-title: nls.io
+title: Thoughts on Magento, Symfony & SysAdmin
 blog_url: blog
 body_classes: header-image fullwidth
 
@@ -22,8 +22,12 @@ feed:
 pagination: true
 ---
 
-#Personal blog of [Guillaume Moigneu](https://www.linkedin.com/in/guillaumemoigneu)
+<div itemscope itemtype="http://schema.org/Person">
 
-Random thoughts about eCommerce & Magento, Symfony2, privacy & sysadmin.
+<h1>Personal blog of <a href="/guillaume-moigneu"><span itemprop="name">Guillaume Moigneu</span></a></h1>
 
-CTO at [Gemmyo](https://www.gemmyo.com) & co-founder at [Kialy](https://kialy.com).
+<p>Random thoughts about <strong>eCommerce</strong> & <strong>Magento</strong>, <strong>Symfony2</strong>, privacy & sysadmin.</p>
+
+<p><span itemprop="jobTitle">CTO</span> at <a href="https://www.gemmyo.com" itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Gemmyo</span></a> & co-founder at <a href="https://kialy.com" itemprop="owns" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Kialy</span></a><span itemprop="workLocation" itemscope itemtype="http://schema.org/Place"><span itemprop="name">Paris, France</span></span>.</p>
+
+</div>

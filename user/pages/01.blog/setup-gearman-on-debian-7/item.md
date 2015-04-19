@@ -1,6 +1,6 @@
 ---
 title: Setup gearman on Debian 7
-date: 21:11:25 21/12/2014 
+date: 12/21/2014 11:00pm
 taxonomy:
     category: blog
     tag: [zend, php, gearman, libgearman]
