@@ -1,20 +1,20 @@
-<div class="list-item">
+<article class="list-item">
 
-    <div class="list-blog-header">
+    <header class="list-blog-header">
 
         {% if page.header.link %}
-            <h3>
+            <h2>
                 {% if page.header.continue_link is not sameas(false) %}
                 <a href="{{ page.url }}"><i class="fa fa-angle-double-right"></i></a>
                 {% endif %}
                 <a href="{{ page.header.link }}">{{ page.title }}</a>
-            </h3>
+            </h2>
         {% else %}
-            <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
+            <h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
         {% endif %}
 
         <span class="list-blog-date">
-            <i class="fa fa-calendar"></i> <span>{{ page.date|date("F j, Y, g:i a") }}</span>
+            <i class="fa fa-calendar"></i> <time>{{ page.date|date("F j, Y, g:i a") }}</time>
         </span>
         {% if page.taxonomy.tag %}
         <span class="tags pull-right">
@@ -29,7 +29,7 @@
             {{ page.media.images|first.cropZoom(900,300).html('','blog-header-image') }}
         {% endif %}
 
-    </div>
+    </header>
 
     <div class="list-blog-padding">
 
@@ -40,10 +40,10 @@
         {% endif %}
     {% elseif truncate and page.summary != page.content %}
         <p>{{ page.summary }}</p>
-        <p><a href="{{ page.url }}">Continue Reading...</a></p>
+        <p class="more-link"><a href="{{ page.url }}">Continue Reading...</a></p>
     {% elseif truncate %}
         <p>{{ page.content|truncate(550) }}</p>
-        <p><a href="{{ page.url }}">Continue Reading...</a></p>
+        <p class="more-link"><a href="{{ page.url }}">Continue Reading...</a></p>
     {% else %}
         <p>{{ page.content }}</p>
         {% set show_prev_next = true %}
@@ -63,4 +63,4 @@
     {% endif %}
 
     </div>
-</div>
+</article>

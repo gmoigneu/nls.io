@@ -13,41 +13,27 @@
     {% endif  %}
 
 	{% block content %}
-        <div class="header">
-            <div class="container">
-                {{ page.content }}
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 blog-main">
+        <header id="intro">
+            {{ page.content }}
+        </header>
+        <main id="blog-index" class="content">
+            {% if config.plugins.breadcrumbs.enabled %}
+                {% include 'partials/breadcrumbs.html.twig' %}
+            {% endif %}
 
-                    {% if config.plugins.breadcrumbs.enabled %}
-                        {% include 'partials/breadcrumbs.html.twig' %}
-                    {% endif %}
+            {% for child in collection %}
+                {% include 'partials/blog_item.html.twig' with {'page':child, 'truncate':true} %}
+            {% endfor %}
 
-                    {% for child in collection %}
-                        {% include 'partials/blog_item.html.twig' with {'page':child, 'truncate':true} %}
-                    {% endfor %}
-
-                </div>
-
-        		{#<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-       				{% include 'partials/sidebar.html.twig' %}
-        		</div>#}
-            </div>
-        </div>
+    		{#<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    				{% include 'partials/sidebar.html.twig' %}
+    		</div>#}
+        </main>
 	{% endblock %}
 
 	{% block pagination %}
         {% if config.plugins.pagination.enabled and collection.params.pagination %}
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 text-center">
-                    {% include 'partials/pagination.html.twig' with {'pagination':collection.params.pagination} %}
-                </div>
-            </div>
-        </div>
+            {% include 'partials/pagination.html.twig' with {'pagination':collection.params.pagination} %}
 	    {% endif %}
 	{% endblock %}
 

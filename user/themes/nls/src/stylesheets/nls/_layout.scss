@@ -1,0 +1,26 @@
+$susy: (
+  	columns: 12,
+  	gutters: .25,
+  	math: fluid,
+  	container: 960px
+);
+
+body {
+	background-color: map-get($colors, background);
+	color: map-get($colors, foreground);
+}
+
+%wrapper {
+  @include container;
+  padding: 48px 30px;
+}
+
+.content {
+	background-color: map-get($colors, content-background);
+	color: map-get($colors, content-foreground);
+}
+
+footer {
+	@extend %wrapper;
+	text-align: center;
+}

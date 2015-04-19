@@ -9,20 +9,11 @@
         <title>{% if header.title %}{{ header.title|e('html') }} | {% endif %}{{ site.title|e('html') }}</title>
         <link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png') }}" />
         {% block stylesheets %}
-            {% do assets.add('theme://assets/stylesheets/nls.css',98) %}
+            {% do assets.add('theme://build/css/nls.css',98) %}
         {% endblock %}
         {{ assets.css() }}
 
-        {% block javascripts %}
-            {% do assets.add('jquery', 101) %}
-            {% do assets.add('theme://js/modernizr.custom.71422.js', 100) %}
-
-            {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
-                {% do assets.add('https://oss.maxcdn.com/respond/1.4.2/respond.min.js') %}
-                {% do assets.add('theme://js/html5shiv-printshiv.min.js') %}
-            {% endif %}
-
-        {% endblock %}
+        {% block javascripts %}{% endblock %}
         {{ assets.js() }}
 
         {% endblock head%}
@@ -37,11 +28,11 @@
         {% block content %}{% endblock %}
         {% block pagination %}{% endblock %}
 
-        <div class="footer">
-            <div class="container">
-                <p class="text-muted">Crafted with love by Guillaume Moigneu &lt;nls&gt;</p>
-            </div>
-        </div>
+        <footer>
+            <p>Crafted with love by <a href="https://www.linkedin.com/in/guillaumemoigneu">Guillaume Moigneu &lt;nls&gt;</a>.</p>
+            <p>Running on <a href="http://getgrav.org/">Grav</a>. Built with <a href="http://sass-lang.com/">Sass</a> / <a href="http://susy.oddbird.net/">Susy</a> / <a href="http://gruntjs.com/">Grunt</a> and hosted on <a href="https://www.debian.org/">Debian</a> with <a href="https://www.varnish-cache.org/">Varnish</a> &amp; <a href="https://www.docker.com/">Docker</a>.
+        </footer>
         {% block bottom %}{% endblock %}
+
     </body>
 </html>

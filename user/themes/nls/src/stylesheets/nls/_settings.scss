@@ -1,0 +1,28 @@
+$colors: (background: #30373d, 
+	foreground: #dbdedf, link: #fff, 
+	content-background: #fff, 
+	content-foreground: #606669, 
+	content-link: #27ae60,
+	content-header: #30373d,
+	second-background: #f1f4f6,
+	second-foreground: #000
+	);
+
+$fonts: (serif: 'PT Serif', sans: 'Montserrat');
+
+// We can use all of the Breakpoint control variables with respond-to as well!
+$breakpoint-no-query-fallbacks: true;
+$breakpoint-to-ems: true;
+
+// These numbers were chosen at random. Don't look too far into them.
+$breakpoints: add-breakpoint("s", 360px);
+$breakpoints: add-breakpoint("p", 568px);
+$breakpoints: add-breakpoint("t", 768px);
+$breakpoints: add-breakpoint("l", 992px);
+$breakpoints: add-breakpoint('high resolution', min-resolution 1.5dppx);
+
+$relative-font-sizing : false;
+$base-font-size       : 16px;
+$base-line-height     : 24px;
+
+$margin: 24px;

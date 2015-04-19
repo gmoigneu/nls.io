@@ -1,0 +1,27 @@
+@import url("http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic|Montserrat");
+@include establish-baseline;
+
+.logo {
+	margin: $margin*2 auto;
+	text-align: center;
+	a {
+		margin: $margin auto;
+		text-align: center;
+		display: inline-block;
+		padding: 8px 16px;
+		background-color: map-get($colors, content-link);
+		color: map-get($colors, link);
+		font-family: map-get($fonts, sans);
+		text-decoration: none;
+		font-size: 36px;
+		line-height: 36px;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: map-get($fonts, sans);
+}
+
+p, blockquote {
+	font-family: map-get($fonts, serif);
+}

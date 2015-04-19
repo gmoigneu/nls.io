@@ -22,8 +22,8 @@ feed:
 pagination: true
 ---
 
-# nls.io
+#Personal blog of [Guillaume Moigneu](https://www.linkedin.com/in/guillaumemoigneu)
 
-Personal blog of Guillaume Moigneu.
+Random thoughts about eCommerce & Magento, Symfony2, privacy & sysadmin.
 
-Random thoughts about Magento, Symfony2, webdev, security & sysadmin
+CTO at [Gemmyo](https://www.gemmyo.com) & co-founder at [Kialy](https://kialy.com).
