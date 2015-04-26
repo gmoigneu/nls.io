@@ -13,7 +13,7 @@ A quick how-to on hosting a website through Tor with nginx or Apache.
 
 First, set up a brand new Debian Wheezy box and harden it as much as possible !
 
-Install & configure nginx as you would normally do.
+Install & configure Apache or nginx as you would normally do.
 
 Add the tor project repository :
 
@@ -29,7 +29,7 @@ Install the Tor service :
 apt-get install tor deb.torproject.org-keyring
 ```
 
-We are now going to route the 8O Tor port to our webserver:
+We are now going to route the 80 Tor port to our webserver:
 
 ```
 echo '' > /etc/tor/torrc
