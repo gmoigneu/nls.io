@@ -29,6 +29,6 @@ pagination: true
 <p>Random thoughts about <strong>eCommerce</strong> & <strong>Magento</strong>, <strong>Symfony2</strong>, privacy & sysadmin.</p>
 
 <p><span itemprop="jobTitle">CTO</span> at <a href="https://www.gemmyo.com" itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Gemmyo</span></a> & co-founder at <a href="https://kialy.com" itemprop="owns" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Kialy</span></a>. <span itemprop="workLocation" itemscope itemtype="http://schema.org/Place"><span itemprop="name">Paris, France</span></span>.</p>
-<p>This blog is accessible through Tor on <a href="http://npdkxyvpw3rk7uib.onion/">http://npdkxyvpw3rk7uib.onion/</a>.
+<p>This blog is accessible through Tor on <a href="http://drwkoc5lok6lhwsn.onion/">http://drwkoc5lok6lhwsn.onion/</a>.
 
 </div>

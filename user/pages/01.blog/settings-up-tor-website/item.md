@@ -15,6 +15,13 @@ First, set up a brand new Debian Wheezy box and harden it as much as possible !
 
 Install & configure Apache or nginx as you would normally do.
 
+Add the Tor repo in `/etc/apt/sources.list`
+
+```
+deb http://deb.torproject.org/torproject.org wheezy main
+deb-src http://deb.torproject.org/torproject.org wheezy main
+```
+
 Add the tor project repository :
 
 ```
