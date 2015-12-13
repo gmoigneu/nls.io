@@ -13,8 +13,6 @@ assets/*
 !assets/.*
 logs/*
 !logs/.*
-images/*
-!images/.*
 user/data/*
 !user/data/.*
 user/plugins/*
