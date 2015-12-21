@@ -1,5 +1,5 @@
 ---
-title: Deploying Magento 2 on Platform.sh
+title: Deploying Magento 2 with Redis on Platform.sh
 date: 12/12/2015 11:00pm
 taxonomy:
     category: webdev
@@ -9,6 +9,11 @@ taxonomy:
 How to install & configure Magento2 to deploy it on the Platform.sh PaaS.
 
 ===
+
+<p class="alert alert-info">
+    <i class="fa fa-pencil"></i>
+Edit 2015-12-21: Add redis configuration
+</p>
 
 [Platform.sh](http://platform.sh) is a Platform-as-a-Service dedicated to hosting PHP applications like WordPress, Drupal or Symfony projects. Here is a quick tutorial on how to deploy the brand new Magento2 on it.
 
@@ -116,6 +121,7 @@ Platform.sh is auto-configured by configuration files located in your project. L
     relationships:
         database: "mysql:mysql"
         redis: "redis:redis"
+        redispage: "redispage:redis"
     runtime:
         extensions:
             - redis
@@ -150,8 +156,11 @@ Platform.sh is auto-configured by configuration files located in your project. L
         disk: 1024
     redis:
         type: redis:2.8
+    redispage:
+        type: redis:2.8
         
 Note that we're using MariaDB 10 as Magento2 requires MySQL 5.6.
+We're using two separate instances of Redis to handle configuration & page cache because Platform.sh has a default configuration of only one Redis database per instance.
 
 ### .platform/routes.yaml
 
@@ -171,14 +180,14 @@ Check that the project is building by executing :
 
     platform local:build
 
-## First deployment
+## 5. First deployment
 
 We're now pushing our first version to the platform.sh master environment
 
     cd repository
     git push -u platform master
     
-## Magento installation
+## 6. Magento installation
 
 We now need to copy our `app/etc/*` files onto the newly created environment :
 
@@ -225,7 +234,61 @@ Go to your environment url (aka base-url) and voilà ! You can also login to you
 
 ![Platform.sh account](./images/151212-2-Magento.jpg)
 
+## 7. Redis configuration
+
+Connect to your environment (ssh or scp) and edit the file <code>app/etc/env.php</code>. Add the <code>cache</code> array to the existing configuration.
+Don't forget to edit the IP adresses found in the <code>$PLATFORM_RELATIONSHIPS</code> variable.
+
+    'cache' =>
+        array (
+            'frontend' => array(
+                'default' => array(
+                    'backend' => 'Cm_Cache_Backend_Redis',
+                    'backend_options' => array(
+                        'server' => 'xxx.xxx.xxx.xxx',
+                        'port' => '6379',
+                        'persistent' => '',
+                        'database' => '0',
+                        'password' => '',
+                        'force_standalone' => '0', 
+                        'connect_retries' => '1',
+                        'read_timeout' => '10',
+                        'automatic_cleaning_factor' => '0',
+                        'compress_data' => '1',
+                        'compress_tags' => '1',
+                        'compress_threshold' => '20480',
+                        'compression_lib' => 'gzip',
+                        'use_lua' => '0'
+                    )
+                ),
+                'page_cache' => array(
+                    'backend' => 'Cm_Cache_Backend_Redis',
+                    'backend_options' => array(
+                        'server' => 'xxx.xxx.xxx.xxx',
+                        'port' => '6379',
+                        'persistent' => '',
+                        'database' => '0',
+                        'password' => '',
+                        'force_standalone' => '0',
+                        'connect_retries' => '1',
+                        'lifetimelimit' => '57600',
+                        'compress_data' => '0'
+                    )
+                )
+            )
+     ),
+     
+     
+On the environment prompt, clear all the Magento caches :
+
+    ./bin/magento cache:clean 
+    
+Redis should be now fully working. You can test it through :
+
+    redis-cli -h xxx.xxx.xxx.xxx
+    > INFO keyspace
+
 <p class="alert alert-danger">
     <i class="fa fa-warning"></i>
 You can find the whole repository here : https://github.com/gmoigneu/magento2-platformsh
-   </p> 
+</p> 
