@@ -17,12 +17,7 @@ use RocketTheme\Toolbox\Event\EventSubscriberInterface;
  */
 class Plugins extends Iterator
 {
-    protected $grav;
-
-    public function __construct(Grav $grav)
-    {
-        $this->grav = $grav;
-    }
+    use GravTrait;
 
     /**
      * Recurses through the plugins directory creating Plugin objects for each plugin it finds.
@@ -33,11 +28,13 @@ class Plugins extends Iterator
     public function init()
     {
         /** @var Config $config */
-        $config = $this->grav['config'];
+        $config = self::getGrav()['config'];
         $plugins = (array) $config->get('plugins');
 
+        $inflector = self::getGrav()['inflector'];
+
         /** @var EventDispatcher $events */
-        $events = $this->grav['events'];
+        $events = self::getGrav()['events'];
 
         foreach ($plugins as $plugin => $data) {
             if (empty($data['enabled'])) {
@@ -45,9 +42,10 @@ class Plugins extends Iterator
                 continue;
             }
 
-            $filePath = $this->grav['locator']('plugins://' . $plugin . DS . $plugin . PLUGIN_EXT);
+            $locator = self::getGrav()['locator'];
+            $filePath = $locator->findResource('plugins://' . $plugin . DS . $plugin . PLUGIN_EXT);
             if (!is_file($filePath)) {
-                $this->grav['log']->addWarning(sprintf("Plugin '%s' enabled but not found! Try clearing cache with `bin/grav clear-cache`", $plugin));
+                self::getGrav()['log']->addWarning(sprintf("Plugin '%s' enabled but not found! Try clearing cache with `bin/grav clear-cache`", $plugin));
                 continue;
             }
 
@@ -55,7 +53,7 @@ class Plugins extends Iterator
 
             $pluginClassFormat = [
                 'Grav\\Plugin\\'.ucfirst($plugin).'Plugin',
-                'Grav\\Plugin\\'.Inflector::camelize($plugin).'Plugin'
+                'Grav\\Plugin\\'.$inflector->camelize($plugin).'Plugin'
             ];
             $pluginClassName = false;
 
@@ -70,7 +68,7 @@ class Plugins extends Iterator
                 throw new \RuntimeException(sprintf("Plugin '%s' class not found! Try reinstalling this plugin.", $plugin));
             }
 
-            $instance = new $pluginClassName($plugin, $this->grav, $config);
+            $instance = new $pluginClassName($plugin, self::getGrav(), $config);
             if ($instance instanceof EventSubscriberInterface) {
                 $events->addSubscriber($instance);
             }
@@ -95,18 +93,25 @@ class Plugins extends Iterator
     {
         $list = array();
         $locator = Grav::instance()['locator'];
-        $iterator = new \DirectoryIterator($locator->findResource('plugins://', false));
 
-        /** @var \DirectoryIterator $directory */
-        foreach ($iterator as $directory) {
-            if (!$directory->isDir() || $directory->isDot()) {
-                continue;
+        $plugins = (array) $locator->findResources('plugins://', false);
+        foreach ($plugins as $path) {
+            $iterator = new \DirectoryIterator($path);
+
+            /** @var \DirectoryIterator $directory */
+            foreach ($iterator as $directory) {
+                if (!$directory->isDir() || $directory->isDot()) {
+                    continue;
+                }
+
+                $plugin = $directory->getBasename();
+                $result = self::get($plugin);
+
+                if ($result) {
+                    $list[$plugin] = $result;
+                }
             }
-
-            $type = $directory->getBasename();
-            $list[$type] = self::get($type);
         }
-
         ksort($list);
 
         return $list;
@@ -114,19 +119,25 @@ class Plugins extends Iterator
 
     public static function get($name)
     {
-        $blueprints = new Blueprints("plugins://{$name}");
-        $blueprint = $blueprints->get('blueprints');
+        $blueprints = new Blueprints('plugins://');
+        $blueprint = $blueprints->get("{$name}/blueprints");
         $blueprint->name = $name;
 
         // Load default configuration.
-        $file = CompiledYamlFile::instance("plugins://{$name}/{$name}.yaml");
+        $file = CompiledYamlFile::instance("plugins://{$name}/{$name}" . YAML_EXT);
+
+        // ensure this is a valid plugin
+        if (!$file->exists()) {
+            return null;
+        }
+
         $obj = new Data($file->content(), $blueprint);
 
         // Override with user configuration.
-        $file = CompiledYamlFile::instance("user://config/plugins/{$name}.yaml");
-        $obj->merge($file->content());
+        $obj->merge(self::getGrav()['config']->get('plugins.' . $name) ?: []);
 
         // Save configuration always to user/config.
+        $file = CompiledYamlFile::instance("config://plugins/{$name}.yaml");
         $obj->file($file);
 
         return $obj;

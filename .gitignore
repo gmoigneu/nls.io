@@ -29,3 +29,6 @@ Thumbs.db
 
 # phpstorm
 .idea/*
+user/accounts
+/images/*
+security.yaml

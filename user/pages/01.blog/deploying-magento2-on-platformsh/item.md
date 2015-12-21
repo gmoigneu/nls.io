@@ -76,7 +76,7 @@ We're now ready to proceed with the deployment
 
 Go to your account and create a new Platform. Choose the best region for your needs and validate your billing details if you're out the 30-day trial.
 
-![Platform.sh account](https://nls.io/images/151212-1-Account.jpg)
+![Platform.sh account](./images/151212-1-Account.jpg)
 
 Give a name to your project and choose the `Import your existing code` option.
 
@@ -223,7 +223,7 @@ That will install Magento2 & the sample data packages. The last step is to gener
     
 Go to your environment url (aka base-url) and voilà ! You can also login to your backend through the Admin URI shown before.
 
-![Platform.sh account](https://nls.io/images/151212-2-Magento.jpg)
+![Platform.sh account](./images/151212-2-Magento.jpg)
 
 <p class="alert alert-danger">
     <i class="fa fa-warning"></i>
