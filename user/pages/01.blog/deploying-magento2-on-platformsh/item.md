@@ -128,7 +128,7 @@ Platform.sh is auto-configured by configuration files located in your project. L
         "/public/pub/media": "shared:files/media"
         "/public/pub/static": "shared:files/static"
         "/public/pub/opt/magento/var": "shared:files/opt-var"
-        "/public/var": "shared:files/var"
+        "/public/var": "shared:files/magento-var"
         "/public/app/etc": "shared:files/etc"
     disk: 2048
     crons:
@@ -179,6 +179,10 @@ We're now pushing our first version to the platform.sh master environment
     git push -u platform master
     
 ## Magento installation
+
+We now need to copy our `app/etc/*` files onto the newly created environment :
+
+    scp -r  app/etc/* xxx-master@ssh.eu.platform.sh:/app/app/etc/
 
 SSH into your environment :
 
