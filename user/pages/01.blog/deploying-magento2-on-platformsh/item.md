@@ -10,6 +10,11 @@ How to install & configure Magento2 to deploy it on the Platform.sh PaaS.
 
 ===
 
+<p class="alert alert-danger">
+    <i class="fa fa-warning"></i>
+This how-to is outdated. Please refer to this [example repository](https://github.com/platformsh/platformsh-example-magento) instead.
+</p>
+
 <p class="alert alert-info">
     <i class="fa fa-pencil"></i>
 Edit 2015-12-21: Add redis configuration
@@ -31,42 +36,42 @@ Launch your terminal and clone the Magento2 repository :
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento2demo
     cd magento2demo
     composer require predis/predis
-    
+
 You will be asked for your Magento credentials. Input them and store them in the `auth.json` composer file.
 
 Init a new git repository into the newly created folder
 
     git init .
-    
+
 Create a new `.gitignore` file at the root of your project:
 
     var/*
     !var/.htaccess
-    
+
     pub/media/*
     !pub/media/customer/.htaccess
     !pub/media/downloadable/.htaccess
     !pub/media/import/.htaccess
     !pub/media/theme_customization/.htaccess
     !pub/media/.htaccess
-    
+
     app/etc/*
     !app/etc/di.xml
     !app/etc/NonComposerComponentRegistration.php
     !app/etc/vendor_path.php
-    
+
     .DS_Store
-    
+
 As you can see there, I'm not ignoring the `vendor` directory and the libs will be added to the git repository. I usually avoid commiting the vendor folder but I did not succeed in handling the Magento repository credentials on Platform.sh. An alternative solution could be to setup a [Toran proxy](https://toranproxy.com/) to handle the authentification.
 
 Add the newly created files to git :
 
     git add .
     git commit -m "Init magento2demo project"
-    
+
 ## 2. Install the sample data package
 
-    chmod +x bin/magento 
+    chmod +x bin/magento
     bin/magento sampledata:deploy
 
 You should get the `The 'https://repo.magento.com/packages.json' URL required authentication.` error. Launch an update and add the files to git:
@@ -74,7 +79,7 @@ You should get the `The 'https://repo.magento.com/packages.json' URL required au
     composer update
     git add .
     git commit -m "Add sample data"
-    
+
 We're now ready to proceed with the deployment
 
 ## 3. Create your Platform.sh project
@@ -88,24 +93,24 @@ Give a name to your project and choose the `Import your existing code` option.
 In your terminal, add the remote to your git project :
 
     git remote add platform xxx@git.eu.platform.sh:xxx.git
-    
+
 **Before you can push to the Platform.sh repository, you need to configure your account's ssh keys except if you logged in through GitHub and you're GitHub have already been imported.**
 
 ## 4. Configuring the platform
 
-The first step is to get the Platform.sh cli tool : 
+The first step is to get the Platform.sh cli tool :
 
     curl -sS https://platform.sh/cli/installer | php
-    
+
 Launch the `platform` tool and get your project id :
 
     platform
-    
+
 Once you get your id, initialize the project in your current git folder :
 
     platform local:init --project xxx
     cd .
-    
+
 Your project is now dispatched in three folders : `builds`, `repository` & `shared`.
 
 ## 5. Configuring the project
@@ -148,7 +153,7 @@ Platform.sh is auto-configured by configuration files located in your project. L
             spec: "*/1 * * * *"
             cmd: "public/bin/magento setup:cron:run"
 
-    
+
 ### .platform/services.yaml
 
     mysql:
@@ -158,7 +163,7 @@ Platform.sh is auto-configured by configuration files located in your project. L
         type: redis:2.8
     redispage:
         type: redis:2.8
-        
+
 Note that we're using MariaDB 10 as Magento2 requires MySQL 5.6.
 We're using two separate instances of Redis to handle configuration & page cache because Platform.sh has a default configuration of only one Redis database per instance.
 
@@ -175,7 +180,7 @@ Commit those configurations :
 
     git add .
     git commit -m "Add platform config files"
-    
+
 Check that the project is building by executing :
 
     platform local:build
@@ -186,7 +191,7 @@ We're now pushing our first version to the platform.sh master environment
 
     cd repository
     git push -u platform master
-    
+
 ## 6. Magento installation
 
 We now need to copy our `app/etc/*` files onto the newly created environment :
@@ -196,11 +201,11 @@ We now need to copy our `app/etc/*` files onto the newly created environment :
 SSH into your environment :
 
     platform environment:ssh
-    
+
 Get your MySQL credentials :
 
     echo $PLATFORM_RELATIONSHIPS| base64 --decode
-    
+
 Adapt the Magento CLI install command with your MySQL details and base-url:
 
     cd public
@@ -219,17 +224,17 @@ Adapt the Magento CLI install command with your MySQL details and base-url:
     --admin-firstname="Your Name" \
     --admin-lastname="LastName" \
     --cleanup-database
-    
+
 <p class="alert alert-danger">
     <i class="fa fa-warning"></i>
 Remember the Magento Admin URI given at the end of the process !
 </p>
 
-That will install Magento2 & the sample data packages. The last step is to generate all Magento2 frontend assets. On your environment ssh and copy sample media files : 
+That will install Magento2 & the sample data packages. The last step is to generate all Magento2 frontend assets. On your environment ssh and copy sample media files :
 
     ./bin/magento setup:static-content:deploy
     cp -R vendor/magento/sample-data-media/* pub/media/
-    
+
 Go to your environment url (aka base-url) and voilà ! You can also login to your backend through the Admin URI shown before.
 
 ![Platform.sh account](./images/151212-2-Magento.jpg)
@@ -250,7 +255,7 @@ Don't forget to edit the IP adresses found in the <code>$PLATFORM_RELATIONSHIPS<
                         'persistent' => '',
                         'database' => '0',
                         'password' => '',
-                        'force_standalone' => '0', 
+                        'force_standalone' => '0',
                         'connect_retries' => '1',
                         'read_timeout' => '10',
                         'automatic_cleaning_factor' => '0',
@@ -277,12 +282,12 @@ Don't forget to edit the IP adresses found in the <code>$PLATFORM_RELATIONSHIPS<
                 )
             )
      ),
-     
-     
+
+
 On the environment prompt, clear all the Magento caches :
 
-    ./bin/magento cache:clean 
-    
+    ./bin/magento cache:clean
+
 Redis should be now fully working. You can test it through :
 
     redis-cli -h xxx.xxx.xxx.xxx
@@ -291,4 +296,4 @@ Redis should be now fully working. You can test it through :
 <p class="alert alert-danger">
     <i class="fa fa-warning"></i>
 You can find the whole repository here : https://github.com/gmoigneu/magento2-platformsh
-</p> 
+</p>
