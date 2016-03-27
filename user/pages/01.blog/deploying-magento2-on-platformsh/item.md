@@ -12,7 +12,7 @@ How to install & configure Magento2 to deploy it on the Platform.sh PaaS.
 
 <p class="alert alert-danger">
     <i class="fa fa-warning"></i>
-This how-to is outdated. Please refer to this [example repository](https://github.com/platformsh/platformsh-example-magento) instead.
+This how-to is outdated. Please refer to this <a href="https://github.com/platformsh/platformsh-example-magento">example repository</a> instead.
 </p>
 
 <p class="alert alert-info">
