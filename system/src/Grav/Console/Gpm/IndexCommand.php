@@ -1,15 +1,17 @@
 <?php
+/**
+ * @package    Grav.Console
+ *
+ * @copyright  Copyright (C) 2014 - 2016 RocketTheme, LLC. All rights reserved.
+ * @license    MIT License; see LICENSE file for details.
+ */
+
 namespace Grav\Console\Gpm;
 
 use Grav\Common\GPM\GPM;
 use Grav\Console\ConsoleCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-/**
- * Class IndexCommand
- *
- * @package Grav\Console\Gpm
- */
 class IndexCommand extends ConsoleCommand
 {
     /**
@@ -69,6 +71,12 @@ class IndexCommand extends ConsoleCommand
                 'Filters the results to Updatable Themes and Plugins only'
             )
             ->addOption(
+                'installed-only',
+                'I',
+                InputOption::VALUE_NONE,
+                'Filters the results to only the Themes and Plugins you have installed'
+            )
+            ->addOption(
                 'sort',
                 's',
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
@@ -95,9 +103,9 @@ class IndexCommand extends ConsoleCommand
 
         $this->gpm = new GPM($this->options['force']);
 
-        $this->data = $this->gpm->getRepository();
+        $this->displayGPMRelease();
 
-        $this->output->writeln('');
+        $this->data = $this->gpm->getRepository();
 
         $data = $this->filter($this->data);
 
@@ -176,7 +184,14 @@ class IndexCommand extends ConsoleCommand
             unset($data['plugins']);
         }
 
-        if ($this->options['filter'] || $this->options['updates-only'] || $this->options['desc']) {
+        $filter = [
+            $this->options['filter'],
+            $this->options['installed-only'],
+            $this->options['updates-only'],
+            $this->options['desc']
+        ];
+
+        if (count(array_filter($filter))) {
             foreach ($data as $type => $packages) {
                 foreach ($packages as $slug => $package) {
                     $filter = true;
@@ -184,6 +199,12 @@ class IndexCommand extends ConsoleCommand
                     // Filtering by string
                     if ($this->options['filter']) {
                         $filter = preg_grep('/(' . (implode('|', $this->options['filter'])) . ')/i', [$slug, $package->name]);
+                    }
+
+                    // Filtering updatables only
+                    if ($this->options['installed-only'] && $filter) {
+                        $method = ucfirst(preg_replace("/s$/", '', $package->package_type));
+                        $filter = $this->gpm->{'is' . $method . 'Installed'}($package->slug);
                     }
 
                     // Filtering updatables only

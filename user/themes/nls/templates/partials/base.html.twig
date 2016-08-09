@@ -14,7 +14,9 @@
         {% endblock %}
         {{ assets.css() }}
 
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+           {% do assets.addJs('jquery',101) %}
+        {% endblock %}
         {{ assets.js() }}
 
         {% endblock head%}

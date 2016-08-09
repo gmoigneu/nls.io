@@ -1,10 +1,14 @@
 ---
-title: "Setting up a Tor website on Debian with nginx or Apache"
+title: 'Setting up a Tor website on Debian with nginx or Apache'
 published: true
-date: 04/26/2015 11:00pm
+date: '04/26/2015 11:00pm'
 taxonomy:
-    category: blog
-    tag: [tor, sysadmin, nginx]
+    category:
+        - blog
+    tag:
+        - tor
+        - sysadmin
+        - nginx
 ---
 
 A quick how-to on hosting a website through Tor with nginx or Apache.

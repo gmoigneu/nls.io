@@ -1,4 +1,4 @@
-FROM php:5.5-fpm
+FROM php:7-fpm
 
 # Environements
 ENV GOSU_VERSION 1.7
@@ -18,7 +18,7 @@ RUN apt-get update \
         git \
         wget \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install opcache mcrypt intl mysql pdo_mysql zip gd exif \
+    && docker-php-ext-install opcache mcrypt intl zip gd exif \
     && pecl install xdebug \
     && pecl install apc \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin \
@@ -35,7 +35,7 @@ RUN apt-get update \
     && rm dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
-    && rm -rf /tmp/pear
+    && rm -rf /tmp/pear 
 
 # Blackfire
 #RUN export VERSION=`php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;"` \

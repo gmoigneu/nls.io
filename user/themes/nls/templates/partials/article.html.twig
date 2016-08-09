@@ -20,6 +20,9 @@
             <span class="article-date">
                 on <i class="fa fa-calendar"></i> <time itemprop="datePublished">{{ page.date|date("F j, Y, g:i a") }}</time>
             </span>
+            <span class="article-time">
+              Reading time: {{ page.content|readingtime({'minutes_label': 'min', 'minute_label': 'min', 'seconds_label': 's', 'second_label': 's'}) }}
+            </span>
         </p>
 
         {% if big_header %}
@@ -27,7 +30,7 @@
         {% else %}
             {{ page.media.images|first.cropZoom(900,300).html('','blog-header-image') }}
         {% endif %}
-        
+
         {% if page.taxonomy.tag %}
         <div class="tags">
             {% for tag in page.taxonomy.tag %}
@@ -56,7 +59,7 @@
     {% endif %}
 
     </div>
-    
+
 </article>
 
 <div class="links">
@@ -70,4 +73,4 @@
             {% endif %}
         </p>
     {% endif %}
-</div>  
+</div>

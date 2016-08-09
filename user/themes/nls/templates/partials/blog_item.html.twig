@@ -16,6 +16,9 @@
         <span class="list-blog-date">
             <i class="fa fa-calendar"></i> <time itemprop="datePublished">{{ page.date|date("F j, Y, g:i a") }}</time>
         </span>
+        <span class="list-blog-time">
+          Reading time: {{ page.content|readingtime({'minutes_label': 'min', 'minute_label': 'min', 'seconds_label': 's', 'second_label': 's'}) }}
+        </span>
         {% if page.taxonomy.tag %}
         <span class="tags pull-right">
             {% for tag in page.taxonomy.tag %}

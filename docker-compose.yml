@@ -1,15 +1,16 @@
-web:
-    image: nginx:latest
-    ports:
-        - "80:80"
-    volumes:
-        - .:/code
-        - ./docker/site.conf:/etc/nginx/conf.d/default.conf
-    links:
-        - php
-
-php:
-    build: docker/app
-    volumes:
-        - .:/code
-        - ./docker/app/php.ini:/usr/local/etc/php/php.ini
+version: '2'
+services:
+  web:
+      image: nginx:latest
+      ports:
+          - "8081:80"
+      volumes:
+          - .:/code
+          - ./docker/nginx:/etc/nginx/conf.d
+      links:
+          - php
+  php:
+      build: docker/app
+      volumes:
+          - .:/code
+          - ./docker/app/php.ini:/usr/local/etc/php/php.ini

@@ -36,7 +36,7 @@ code {
 }
 
 pre {
-	background-color: map-get($colors, second-background);
+	background-color: map-get($colors, code);
 	color: map-get($colors, second-foreground);
 	font-family: map-get($fonts, mono);
 	padding: 16px;

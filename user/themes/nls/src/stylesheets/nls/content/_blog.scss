@@ -20,7 +20,7 @@ article {
 		font-size: 24px;
 		line-height: 36px;
 		a {
-			color: map-get($colors, content-header);	
+			color: map-get($colors, content-header);
 			text-decoration: none;
 		}
 	}
@@ -31,6 +31,20 @@ article header {
 	margin-bottom: $margin/2;
 }
 
-.article-metadata, .article-metadata time {
+.article-metadata,
+.article-metadata time {
 	font-size: 14px;
+}
+
+.article-metadata .article-time {
+	display: block;
+	font-style: italic;
+}
+
+.list-blog-time {
+	font-size: 12px;
+	font-style: italic;
+	&:before {
+		content: ' - ';
+	}
 }

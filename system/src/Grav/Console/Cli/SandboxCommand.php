@@ -1,4 +1,11 @@
 <?php
+/**
+ * @package    Grav.Console
+ *
+ * @copyright  Copyright (C) 2014 - 2016 RocketTheme, LLC. All rights reserved.
+ * @license    MIT License; see LICENSE file for details.
+ */
+
 namespace Grav\Console\Cli;
 
 use Grav\Console\ConsoleCommand;
@@ -6,16 +13,12 @@ use Grav\Common\Filesystem\Folder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-/**
- * Class SandboxCommand
- * @package Grav\Console\Cli
- */
 class SandboxCommand extends ConsoleCommand
 {
     /**
      * @var array
      */
-    protected $directories = array(
+    protected $directories = [
         '/backup',
         '/cache',
         '/logs',
@@ -27,35 +30,36 @@ class SandboxCommand extends ConsoleCommand
         '/user/data',
         '/user/plugins',
         '/user/themes',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $files = array(
+    protected $files = [
         '/.dependencies',
         '/.htaccess',
-        '/nginx.conf',
-        '/web.config',
         '/user/config/site.yaml',
         '/user/config/system.yaml',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $mappings = array(
-        '/.editorconfig' => '/.editorconfig',
-        '/.gitignore' => '/.gitignore',
-        '/CHANGELOG.md' => '/CHANGELOG.md',
-        '/LICENSE.txt' => '/LICENSE.txt',
-        '/README.md' => '/README.md',
-        '/index.php'     => '/index.php',
-        '/composer.json' => '/composer.json',
-        '/bin'           => '/bin',
-        '/system'        => '/system',
-        '/vendor'        => '/vendor',
-    );
+    protected $mappings = [
+        '/.editorconfig'        => '/.editorconfig',
+        '/.gitignore'           => '/.gitignore',
+        '/CHANGELOG.md'         => '/CHANGELOG.md',
+        '/LICENSE.txt'          => '/LICENSE.txt',
+        '/README.md'            => '/README.md',
+        '/CONTRIBUTING.md'      => '/CONTRIBUTING.md',
+        '/index.php'            => '/index.php',
+        '/composer.json'        => '/composer.json',
+        '/bin'                  => '/bin',
+        '/system'               => '/system',
+        '/vendor'               => '/vendor',
+        '/webserver-configs'    => '/webserver-configs',
+        '/codeception.yml'      => '/codeception.yml',
+    ];
 
     /**
      * @var string
@@ -199,7 +203,7 @@ class SandboxCommand extends ConsoleCommand
      */
     private function initFiles()
     {
-        $this->check($this->output);
+        $this->check();
 
         $this->output->writeln('');
         $this->output->writeln('<comment>File Initializing</comment>');
@@ -224,8 +228,6 @@ class SandboxCommand extends ConsoleCommand
         if (!$files_init) {
             $this->output->writeln('    <red>Files already exist</red>');
         }
-
-
     }
 
     /**
@@ -238,7 +240,7 @@ class SandboxCommand extends ConsoleCommand
 
         // get pages files and initialize if no pages exist
         $pages_dir = $this->destination . '/user/pages';
-        $pages_files = array_diff(scandir($pages_dir), array('..', '.'));
+        $pages_files = array_diff(scandir($pages_dir), ['..', '.']);
 
         if (count($pages_files) == 0) {
             $destination = $this->source . '/user/pages';
@@ -268,7 +270,6 @@ class SandboxCommand extends ConsoleCommand
         $this->output->writeln("");
     }
 
-
     /**
      *
      */
@@ -294,6 +295,7 @@ class SandboxCommand extends ConsoleCommand
                 $success = false;
             }
         }
+
         if (!$success) {
             $this->output->writeln('');
             $this->output->writeln('<comment>install should be run with --symlink|--s to symlink first</comment>');
