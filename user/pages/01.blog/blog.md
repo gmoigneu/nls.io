@@ -26,9 +26,9 @@ pagination: true
 
 <h1>Personal blog of <a href="/guillaume-moigneu"><span itemprop="name">Guillaume Moigneu</span></a></h1>
 
-<p>Random thoughts about <strong>eCommerce</strong> & <strong>Magento</strong>, <strong>Symfony2</strong>, privacy & sysadmin.</p>
+<p>Random thoughts about <strong>eCommerce</strong> & <strong>Magento</strong>, <strong>Symfony</strong>, privacy & sysadmin.</p>
 
-<p><span itemprop="jobTitle">Pre-Sales</span> at <a href="https://platform.sh" itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Platform.sh</span></a> & co-founder at <a href="https://kialy.com" itemprop="owns" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Kialy</span></a>. <span itemprop="workLocation" itemscope itemtype="http://schema.org/Place"><span itemprop="name">Paris, France</span></span>.</p>
+<p><span itemprop="jobTitle">Director of Pre-Sales</span> at <a href="https://platform.sh" itemprop="worksFor" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">Platform.sh</span></a>. <span itemprop="workLocation" itemscope itemtype="http://schema.org/Place"><span itemprop="name">Bordeaux, France</span></span>.</p>
 <p>This blog is accessible through Tor on <a href="http://drwkoc5lok6lhwsn.onion/">http://drwkoc5lok6lhwsn.onion/</a>.
 
 </div>
