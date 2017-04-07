@@ -1,5 +1,5 @@
 <?php
-namespace Grav\Plugin;
+namespace Grav\Plugin\Admin;
 
 use Grav\Common\Grav;
 use Grav\Common\Language\Language;
@@ -43,6 +43,30 @@ class AdminTwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
 
         ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new \Twig_SimpleFunction('getPageUrl', [$this, 'getPageUrl'], ['needs_context' => true]),
+        ];
+    }
+
+    public function getPageUrl($context, $page)
+    {
+        $page_route = trim($page->rawRoute(), '/');
+        $page_lang = $page->language();
+        $base_url = $context['base_url'];
+        $base_url_simple = $context['base_url_simple'];
+        $admin_lang = Grav::instance()['session']->admin_lang ?: 'en';
+
+        if ($page_lang && $page_lang != $admin_lang) {
+            $page_url = $base_url_simple . '/' . $page_lang . '/' . $context['admin_route'] . '/pages/' . $page_route;
+        } else {
+            $page_url = $base_url . '/pages/' . $page_route;
+        }
+
+        return $page_url;
     }
 
     public function tuFilter()
